@@ -55,21 +55,24 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(getQuantity() * 5);
+        String message = getPriceTextView().getText().toString();
+        message += System.getProperty ("line.separator") + "Thank you!";
+        displayPrice(message);
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
     private void display(int number) {
-        getQuantityTextView().setText("" + number);
+        getQuantityTextView().setText(String.valueOf(number));
+        getPriceTextView().setText("Total: " + NumberFormat.getCurrencyInstance().format(getQuantity() * 5));
     }
 
     /**
      * This method displays the given price on the screen.
      */
-    private void displayPrice(int number) {
-        getPriceTextView().setText(NumberFormat.getCurrencyInstance().format(number));
+    private void displayPrice(String message) {
+        getPriceTextView().setText(message);
     }
 
     public void increase(View view) {
