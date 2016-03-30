@@ -1,7 +1,10 @@
 package com.example.desenv.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -13,7 +16,7 @@ import java.text.NumberFormat;
 /**
  * This app displays an order form to order coffee.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private int price;
     private int total;
@@ -25,6 +28,8 @@ public class MainActivity extends ActionBarActivity {
     private CheckBox whippedCream;
     private CheckBox chocolate;
     private EditText nameClient;
+
+    private String[] emailAddresses = {"pvieiraguimaraes@gmail.com, juwiccana@gmail.com"};
 
     public int getQuantity() {
         return quantity;
@@ -128,14 +133,30 @@ public class MainActivity extends ActionBarActivity {
     private void createOrder() {
         String message = "ORDER SUMMARY" + System.getProperty("line.separator");
 
-        message += System.getProperty("line.separator") + "Name: " + getNameClient().getText().toString();
+        String nameClient = getNameClient().getText().toString();
+
+        message += System.getProperty("line.separator") + "Name: " + nameClient;
         message += System.getProperty("line.separator") + "Add whipped cream? " + getWhippedCream().isChecked();
         message += System.getProperty("line.separator") + "Add chocolate? " + getChocolate().isChecked();
         message += System.getProperty("line.separator") + "Quantity: " + getQuantity();
         message += System.getProperty("line.separator") + "Total: " + NumberFormat.getCurrencyInstance().format(getTotal());
         message += System.getProperty("line.separator") + "Thank you!";
 
-        displayPrice(message);
+        String subject = "JustJava order for " + nameClient;
+        composeEmail(emailAddresses, subject, message);
+    }
+
+    public void composeEmail(String[] addresses, String subject, String message) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(intent, "Send email..."));
+        }
     }
 
     /**
