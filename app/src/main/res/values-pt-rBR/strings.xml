@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Apenas Java</string>
+
+    <!--activity_main-->
+    <string name="hint_name">Nome</string>
+    <string name="toppings">Adicionais</string>
+    <string name="whipped_cream">Chantilly</string>
+    <string name="chocolate">Chocolate</string>
+    <string name="quantity">Quantidade</string>
+    <string name="plus_symbol">+</string>
+    <string name="initial_quantity_value">2</string>
+    <string name="minus_symbol">-</string>
+    <string name="price">Preço</string>
+    <string name="initial_price">R$0</string>
+    <string name="order">Pedir</string>
+
+    <!--strings hard code-->
+    <string name="order_title">RESUMO DO PEDIDO</string>
+    <string name="label_name">Nome: </string>
+    <string name="label_add_whipped_cream">Adicional chantilly? </string>
+    <string name="label_add_chocolate">Adicional chocolate? </string>
+    <string name="label_quantity">Quantidade: </string>
+    <string name="label_total">Total: </string>
+    <string name="label_thank_you">Flw vlw!</string>
+    <string name="subject_email_order">Apenas Java pedido para </string>
+
+    <!--messages-->
+    <string name="send_email_message">Enviando email...</string>
+    <string name="max_value_quantity_message">O valor máximo é 100! =/</string>
+    <string name="min_value_quantity_message">O valor mínimo é 1! =D</string>
+
+</resources>

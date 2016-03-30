@@ -3,7 +3,6 @@ package com.example.desenv.justjava;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox chocolate;
     private EditText nameClient;
 
-    private String[] emailAddresses = {"pvieiraguimaraes@gmail.com, juwiccana@gmail.com"};
+    private String[] emailAddresses = {"pvieiraguimaraes@gmail.com"};
 
     public int getQuantity() {
         return quantity;
@@ -131,18 +130,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createOrder() {
-        String message = "ORDER SUMMARY" + System.getProperty("line.separator");
+        String message = getString(R.string.order_title) + System.getProperty("line.separator");
 
         String nameClient = getNameClient().getText().toString();
 
-        message += System.getProperty("line.separator") + "Name: " + nameClient;
-        message += System.getProperty("line.separator") + "Add whipped cream? " + getWhippedCream().isChecked();
-        message += System.getProperty("line.separator") + "Add chocolate? " + getChocolate().isChecked();
-        message += System.getProperty("line.separator") + "Quantity: " + getQuantity();
-        message += System.getProperty("line.separator") + "Total: " + NumberFormat.getCurrencyInstance().format(getTotal());
-        message += System.getProperty("line.separator") + "Thank you!";
+        message += System.getProperty("line.separator") + getString(R.string.label_name) + nameClient;
+        message += System.getProperty("line.separator") + getString(R.string.label_add_whipped_cream) + getWhippedCream().isChecked();
+        message += System.getProperty("line.separator") + getString(R.string.label_add_chocolate) + getChocolate().isChecked();
+        message += System.getProperty("line.separator") + getString(R.string.label_quantity) + getQuantity();
+        message += System.getProperty("line.separator") + getString(R.string.label_total) + NumberFormat.getCurrencyInstance().format(getTotal());
+        message += System.getProperty("line.separator") + getString(R.string.label_thank_you);
 
-        String subject = "JustJava order for " + nameClient;
+        String subject = getString(R.string.subject_email_order) + nameClient;
         composeEmail(emailAddresses, subject, message);
     }
 
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_TEXT, message);
 
         if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(Intent.createChooser(intent, "Send email..."));
+            startActivity(Intent.createChooser(intent, getString(R.string.send_email_message)));
         }
     }
 
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         getQuantityTextView().setText(String.valueOf(getQuantity()));
 
         setTotal(getQuantity() * getPrice());
-        getPriceTextView().setText("Total: " + NumberFormat.getCurrencyInstance().format(getTotal()));
+        getPriceTextView().setText(getString(R.string.label_total) + NumberFormat.getCurrencyInstance().format(getTotal()));
     }
 
     /**
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void increase(View view) {
         if (getQuantity() == 100) {
-            showMessage("The max value is 100! =/");
+            showMessage(getString(R.string.max_value_quantity_message));
         } else {
             setQuantity(Integer.parseInt(getQuantityTextView().getText().toString()) + 1);
             display();
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void decrease(View view) {
         if (getQuantity() == 1) {
-            showMessage("The least value is 1! =D");
+            showMessage(getString(R.string.min_value_quantity_message));
         } else {
             setQuantity(Integer.parseInt(getQuantityTextView().getText().toString()) - 1);
             display();
